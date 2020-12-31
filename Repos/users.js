@@ -24,10 +24,10 @@ class UserRepo{
 		const users= await this.getAll();
 		object.Id=this.randomId();
 		const salt=crypto.randomBytes(8).toString('hex');
-		const buff=await scrypt(object.passward,salt,64);
+		const buff=await scrypt(object.password,salt,64);
 		const record={
 			...object,
-			passward:`${buff.toString('hex')}.${salt}`
+			password:`${buff.toString('hex')}.${salt}`
 		}
 		users.push(record);
 		this.write(users);
