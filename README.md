@@ -1,4 +1,4 @@
-# ecomm
+# ecomm sorry it is not yet builded
 
 This is not for user.compleate dynamic nodeJs application.
 
