@@ -1,16 +1,29 @@
 const layout = require('../layout');
-const {getError}=require('../../viewHelper');
+const {checkForExGirl,getError}=require('../../viewHelper');
 
-module.exports=({errors})=>{
+module.exports=({errors,exGirl})=>{
+	const {mail,pwd}=checkForExGirl(exGirl);
 	return layout({content :`
-<div>	
-	<form method="POST">
-		<input name="email" placeholder="user email"/>
-${getError(errors,'email')}
-		<input name="pwd" placeholder="password"/>
-${getError(errors,'pwd')}
-		<button>Sign In</button>
-	</form>	
-</div>
+    <header>
+			<h1>Admin Pannal</h1>
+			 <a href="#"><span>ë</span> prodects</a>
+		</header><br/>
+		<div class="container">
+            <form method="POST">
+                <h1>Sign In</h1>
+                <div class="form-group">
+                    <label>Email </label>
+                    <input name="email" value="${mail}" placeholder="user email"  class="form-control" required>
+					<p class="validation">${getError(errors,'email')}</p>
+                </div>
+                <div class="form-group">
+                    <label > Password</label>
+                    <input name="pwd" value="${pwd}" placeholder="password" type="text" class="form-control" required>
+					<p class="validation">${getError(errors,'pwd')}</p>
+                </div>
+                <input type="submit" class="btn" value="sign in">
+            </form>
+    </div>
+
 `});
 }

@@ -56,7 +56,7 @@ app.post('/signin',
 				req.session.userId=user.Id;
 				return res.send('You are logged In :)');
 			}	
-			res.send(signinT({errors}));
+			res.send(signinT({errors,exGirl:req.body}));
 			
 		}
 );

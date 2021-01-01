@@ -18,12 +18,12 @@ module.exports={
 		check('pwd')
 			.trim()
 			.isLength({min:6,max:20})
-			.withMessage('password must <20 or >6'),
+			.withMessage('length of password must <20 and >6'),
 	isEqualToPassword:
        check('cpwd')
 			.trim()
 			.isLength({min:6,max:20})
-			.withMessage('password must <20 or >6')
+			.withMessage('password must <20 and >6')
             .custom((cpwd, { req }) => {
 				if (cpwd !== req.body.pwd) {
 				  throw new Error('Passwords must match');

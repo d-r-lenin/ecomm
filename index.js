@@ -5,6 +5,7 @@ const rout=require('./handlers/admin/auth');
 
 const app=express();
 
+app.use(express.static('public'));
 app.use(bodyParser.urlencoded({extended:true}));
 ///Don'tTouchTheCookieSession👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇//
 app.use(cookieSession({keys:['qqqpwoeirutylaksjdhfgzmxncbvewasscjggjcjgcmnncjhduxhgfddd']}));
