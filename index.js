@@ -11,7 +11,7 @@ app.use(bodyParser.urlencoded({extended:true}));
 app.use(cookieSession({keys:['qqqpwoeirutylaksjdhfgzmxncbvewasscjggjcjgcmnncjhduxhgfddd']}));
 app.use(rout);
 
-app.listen(process.env.PORT,()=>{
+app.listen(process.env.PORT||3000,()=>{
 	console.log("work is started...");
 })
 
