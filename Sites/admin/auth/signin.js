@@ -4,10 +4,6 @@ const {checkForExGirl,getError}=require('../../viewHelper');
 module.exports=({errors,exGirl})=>{
 	const {mail,pwd}=checkForExGirl(exGirl);
 	return layout({content :`
-    <header>
-			<h1>Admin Pannal</h1>
-			 <a href="#"><span>ë</span> prodects</a>
-		</header><br/>
 		<div class="container">
             <form method="POST">
                 <h1>Sign In</h1>
@@ -24,6 +20,7 @@ module.exports=({errors,exGirl})=>{
                 <input type="submit" class="btn" value="sign in">
             </form>
     </div>
-
+`,links:`
+<link href="css/style.css" rel="stylesheet" />
 `});
 }

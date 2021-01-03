@@ -1,9 +1,16 @@
 //////////////////////////////////IMPORTING REQUIRMENTS//////////////////////////////////////////
 const express=require('express');
-const { check ,validationResult }=require('express-validator');
+
 const store=require('../../Repos/users');
 const signupT=require('../../Sites/admin/auth/signup');
 const signinT=require('../../Sites/admin/auth/signin');
+
+
+const { 
+	errorHandler , 
+	errorHandlerUP ,
+	errorHandlerIN
+		}=require('./middlewares');
 const {
 	isValidEmail ,
 	isValidPassword ,
@@ -11,6 +18,8 @@ const {
 	isEmailExist,
 	isPasswordExist
 			}=require('./validator');
+
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////INIT EXPRESS SUB SERVER///////////////////////////////////////////////////////////////
 const app=express();
@@ -32,32 +41,23 @@ app.get('/signin',(req,res)=>{
 ///////////////////////POST REQUEST HANDLERS///////////////////////////////////////////////////////
 app.post( '/signup', 
 		 [isValidEmail,isValidPassword,isEqualToPassword],
+		 errorHandlerUP(signupT),
 		 async( req , res )=>{
-			const errors=validationResult(req);
 			const { email,pwd,cpwd}=req.body;
-			if(errors.errors.length>1){
-				return res.send(signupT({errors,exGirl:{email,pwd,cpwd},req}));
-			}else if(errors.mapped()['cpwd'].msg!=='Invalid value'){
-				return res.send(signupT({errors,exGirl:{email,pwd,cpwd},req}));
-			}
 			const user=await store.createStat({email,password:pwd});
 			req.session.userId=user.Id;
-			res.send(`responce recorder`);
+			res.redirect('/admin/products');
 		}
 );
 
 app.post('/signin',
 		 [isEmailExist,isPasswordExist],
+		 errorHandlerIN(signinT),
 		 async (req,res)=>{
-			const {email}=req.body;
-			const errors=validationResult(req);	
-			if(errors.isEmpty()){
+			const {email}=req.body;	
 			const user=await store.getBy({email});
-				req.session.userId=user.Id;
-				return res.send('You are logged In :)');
-			}	
-			res.send(signinT({errors,exGirl:req.body}));
-			
+			req.session.userId=user.Id;
+			res.redirect('/admin/products');
 		}
 );
 //////////////////////////////////////////////////////////////////////////////////

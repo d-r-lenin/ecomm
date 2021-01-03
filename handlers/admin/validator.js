@@ -2,6 +2,17 @@ const { check }=require('express-validator');
 const store=require('../../Repos/users');
 
 module.exports={
+	isValidTitle:
+		check('title')
+			.trim()
+			.isLength({min:5,max:50})
+			.withMessage('Title must have 5 to 50 charecter length'),
+	isValidPrice:
+		check('price')
+			.trim()
+			.toFloat()
+			.isFloat({min:1})
+			.withMessage('Provide a Valid Value in Rupee'),
 	isValidEmail:
 		check('email')
 			.trim()

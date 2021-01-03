@@ -1,7 +1,9 @@
 const express=require('express');
 const bodyParser=require('body-parser');
 const cookieSession=require('cookie-session');
-const rout=require('./handlers/admin/auth');
+const routerU=require('./handlers/admin/auth');
+const routerAP=require('./handlers/admin/products');
+const routerP=require('./handlers/products');
 
 const app=express();
 
@@ -9,7 +11,9 @@ app.use(express.static('public'));
 app.use(bodyParser.urlencoded({extended:true}));
 ///Don'tTouchTheCookieSession👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇//
 app.use(cookieSession({keys:['qqqpwoeirutylaksjdhfgzmxncbvewasscjggjcjgcmnncjhduxhgfddd']}));
-app.use(rout);
+app.use(routerU);
+app.use(routerP);
+app.use(routerAP);
 
 app.listen(process.env.PORT||3000,()=>{
 	console.log("work is started...");
