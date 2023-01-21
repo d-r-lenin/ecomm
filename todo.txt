@@ -1,0 +1,19 @@
+if(user clicks Add To Cart button){
+
+	5.check is product already in cart
+	   if YES increament the count 
+	   if not create record that have id and count:1	
+}
+6.create a template for cart
+7.render all stats on it
+
+carts.json file looks like::
+[
+ 	{
+	id:27gs36uw,
+	items:[
+		id:214wew4,
+		count:1
+	]	
+	}
+]
