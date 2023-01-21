@@ -1,9 +1,11 @@
 const express=require('express');
 const bodyParser=require('body-parser');
 const cookieSession=require('cookie-session');
+
 const routerU=require('./handlers/admin/auth');
 const routerAP=require('./handlers/admin/products');
 const routerP=require('./handlers/products');
+const routerC=require('./handlers/carts');
 
 const app=express();
 
@@ -14,9 +16,10 @@ app.use(cookieSession({keys:['qqqpwoeirutylaksjdhfgzmxncbvewasscjggjcjgcmnncjhdu
 app.use(routerU);
 app.use(routerP);
 app.use(routerAP);
+app.use(routerC);
 
 app.listen(process.env.PORT||3000,()=>{
-	console.log("work is started...");
+	console.log("Server Is Running...");
 })
 
 

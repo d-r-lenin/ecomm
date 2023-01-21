@@ -9,8 +9,9 @@ module.exports=({content})=>{
  <body>
 	  <header>
 			<h1>BeEShpoing</h1>
-			 <a href="/admin/products"><span>ë</span>Prodects</a>
-			 <a href="#">Cart</a>
+			<a href="/">home</a>
+			<a href="/admin/products">Admin</a>
+			 <a href="/cart">Cart</a>
 		</header><br/>
      		${content}
  </body>

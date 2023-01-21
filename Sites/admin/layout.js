@@ -10,8 +10,11 @@ module.exports=({content,links})=>{
  <body>
 	  <header>
 			<h1>Admin Pannal</h1>
-			 <a href="/admin/products"><span>ë</span> prodects</a>
-		</header><br/>
+			<nav>
+			<a href="/">Home<a>
+			<a href="/admin/products"><span>ë</span> prodects</a>
+			</nav>
+	  </header><br/>
      		${content}
  </body>
 </html>

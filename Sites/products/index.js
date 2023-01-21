@@ -5,7 +5,10 @@ module.exports=({products})=>{
 		return `
 			<li>${item.title}-->>$${item.price}</li>
 			<img src="data:image/png;base64,${item.image}">
-			<button>Add To Cart</button>`;
+			<form method="POST" action="/cart/add">
+			<input name="productId" hidden value="${item.id}"/>
+			<button>Add To Cart</button>
+			</form>`;
 	}).join('');
 	
 	
