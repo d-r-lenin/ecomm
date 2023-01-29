@@ -1,7 +1,7 @@
 const express=require('express');
 
 const indexTemplate=require('../Sites/products/index');
-const productsRepo=require('../Repos/products');
+const productsRepo = require('../Repos/products');
 
 const app=express();
 

@@ -2,9 +2,9 @@ const express=require('express');
 
 const CartsRepo=require('../Repos/carts');
 const ProductsRepo=require('../Repos/products');
-const cartT=require('../Sites/cart');
+const cartT = require('../Sites/cart');
 
-const app=express();
+const app = express();
 
 app.post('/cart/delete',async (req,res)=>{
 	if(!req.session.cartId){
@@ -20,16 +20,22 @@ app.post('/cart/delete',async (req,res)=>{
 });
 
 app.post('/cart/add',async(req,res)=>{
-	const {productId}=req.body;
+	const { productId } = req.body;
 	let cart;
-	if(!req.session.cartId){
-		cart=await CartsRepo.createStat({ items:[]});		
-		req.session.cartId=cart.id;
-	}else{
-		cart=await CartsRepo.get(req.session.cartId);
-	}
 	
-	await CartsRepo.addToCart(cart.id,productId)
+	if(!req.session.cartId){
+		cart = await CartsRepo.createStat({ items: [] });
+        req.session.cartId = cart.id;
+	} else {
+		cart = await CartsRepo.get(req.session.cartId);
+	}
+
+	if (!cart) {
+        req.session.cartId = null;
+        return res.redirect("/");
+    }
+
+	await CartsRepo.addToCart(cart.id, productId)
 	
 	res.redirect('/cart');
 });
@@ -42,12 +48,12 @@ app.get('/cart',async(req,res)=>{
 	if(!cart){
 		return res.redirect('/');
 	}
-	let items=cart.items.map(async(item)=>{
-		const n=await ProductsRepo.get(item.id);
-		n.count=item.count;
+	let items = cart.items.map(async(item)=>{
+		const n = await ProductsRepo.get(item.id);
+		n.count = item.count;
 		return n; 
 	})
-	items=await Promise.all(items);
+	items = await Promise.all(items);
 	res.send(await cartT({products:items}));
 });
 

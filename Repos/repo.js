@@ -1,68 +1,83 @@
-const fs=require('fs');
-const crypto=require('crypto');
-module.exports=class Repo{
-	constructor(filename){
-		if(!filename){
-			throw new Error('requer file name');
-		}
-		this.filename=filename;
-		try{
-			fs.accessSync(filename)
-		}catch{
-			fs.writeFileSync(filename,'[]');
+class Repo {
+	constructor(model) {
+		this.model = model;
+	}
+
+	async getAll() {
+		try {
+			let result =  await this.model.find({});
+			if (result) {
+				result = result.toObject();
+			}
+			return result;
+		} catch (error) {
+			console.error(error);
+			return null;
 		}
 	}
 
-	async getAll(){
-		return  JSON.parse(await fs.promises.readFile(this.filename,{encoding:'utf8'}));
+	async get(id) {
+		try {
+			let result = await this.model.findById(id);
+			if (result) {
+				result = result.toObject();
+			}
+			return result;
+		} catch (error) {
+			console.error(error);
+			return null;
+		}
 	}
 
-	async write(file){
-		await fs.promises.writeFile(this.filename,JSON.stringify(file,null,3));
-	}
-	randomId(){
-		return crypto.randomBytes(4).toString('hex');
-	}
-	async get(id){
-		const stats=await this.getAll();
-		return await stats.find(stat=>stat.id===id);
-	} 
 	async deleteStat(id){
-		const stats=await this.getAll();
-		const filtered=stats.filter(stat=>stat.id!==id);
-		this.write(filtered);
-	}
-	async update(id,object){
-		const stats=await this.getAll();
-		const target =stats.find(stat=>stat.id===id);
-		if(!target){
-			throw new Error(`Given Id ${id} not found`);
+		try {
+			const result = await this.model.findByIdAndDelete(id);
+			return result;
+		} catch (error) {
+			console.error(error);
+			return null;
 		}
-		Object.assign(target,object);
-		this.write(stats);
+	}
+
+	async update(id,object){
+		try{
+			const updated = await this.model.findOneAndUpdate(id, {
+                $set: object,
+            });
+			return updated;
+		} catch (error) {
+			console.error(error);
+			return null;
+		}
 	}
 
 	async getBy(object){
-		const stats= await this.getAll();
-		for(let stat of stats){
-			let found=true;
-			for(let key in object){
-				if(stat[key]!==object[key]){
-					found=false;
-				}
+		try{
+			let result = await this.model.findOne(object);
+			if (result) {
+				result = result.toObject();
 			}
-			if(found){
-			return stat;	
-			}
-
+			return result;
+		} catch (error) {
+			console.error(error);
+			return null;
 		}
 	}
 
 	async createStat(object){
-		const stats=await this.getAll();
-		object.id=this.randomId();
-		stats.push(object);
-		this.write(stats);
-		return object;
+		try{
+			let result = await this.model.create(object);
+			if (result) {
+				result = result.toObject();
+			}
+			return result;
+		} catch (error) {
+			console.error(error);
+			return null;
+		}
 	}
+
 }
+
+
+module.exports = Repo;

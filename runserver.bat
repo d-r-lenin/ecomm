@@ -1,1 +1,1 @@
-npm run lel
+npm start

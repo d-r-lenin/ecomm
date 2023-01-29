@@ -20,7 +20,7 @@ module.exports={
 			.isEmail()
 			.withMessage('Email is not valid')
 			.custom(async (email)=>{
-				const alreadyUser=await store.getBy({email});
+				const alreadyUser = await store.getBy({email});
 				if(alreadyUser){
 				throw new Error('Email is already taken by Mr.Lee');	
 				}		 	 

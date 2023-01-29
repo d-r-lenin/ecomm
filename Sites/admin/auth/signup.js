@@ -3,31 +3,34 @@ const {checkForExGirl,getError}=require('../../viewHelper');
 
 module.exports=({errors,exGirl,req})=>{	
 	const {mail,pwd,cpwd}=checkForExGirl(exGirl);
-	return layout({content:`
+	return layout({
+        content: `
 		<div class="container">
             <form method="POST">
                 <h1>Sign Up</h1>
                 <div class="form-group">
                     <label>Email </label>
                     <input name="email" value="${mail}" placeholder="user email"  class="form-control" required focus>
-					<p class="validation">${getError(errors,'email')}</p>
+					<p class="validation">${getError(errors, "email")}</p>
                 </div>
                 <div class="form-group">
                     <label > Password</label>
-                    <input name="pwd" value="${pwd}" placeholder="password" type="text" class="form-control" required>
-					<p class="validation">${getError(errors,'pwd')}</p>
+                    <input type="password" name="pwd" value="${pwd}" placeholder="password" type="text" class="form-control" required>
+					<p class="validation">${getError(errors, "pwd")}</p>
                 </div>
 				<div class="form-group">
                     <label >confirm Your Password</label>
-                    <input name="cpwd" value="${cpwd}" placeholder="password" type="text" class="form-control" required>
-					<p class="validation">${getError(errors,'cpwd')}</p>
+                    <input type="password" name="cpwd" value="${cpwd}" placeholder="password" type="text" class="form-control" required>
+					<p class="validation">${getError(errors, "cpwd")}</p>
                 </div>
                 <input type="submit" class="btn" value="sign in">
             </form>
     </div>
-`,links:`
+`,
+        links: `
 <link href="css/style.css" rel="stylesheet" />
-`});
+`,
+    });
 }
 
 

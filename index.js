@@ -1,49 +1,34 @@
+'use strict';
+
+require('dotenv').config();
+require('./config/db').connect();
+
+const PORT = process.env.PORT || 3000;
+
 const express=require('express');
-const bodyParser=require('body-parser');
 const cookieSession=require('cookie-session');
+const cors = require("cors");
 
-const routerU=require('./handlers/admin/auth');
-const routerAP=require('./handlers/admin/products');
-const routerP=require('./handlers/products');
-const routerC=require('./handlers/carts');
 
-const app=express();
+const routerAdminAuth=require('./controllers/admin/auth');
+const routerAdminProducts=require('./controllers/admin/products');
+const routerProducts=require('./controllers/products');
+const routerCarts=require('./controllers/carts');
 
+const app = express();
+
+app.use(cors( { origin: '*', credentials: true } ));
 app.use(express.static('public'));
-app.use(bodyParser.urlencoded({extended:true}));
-///Don'tTouchTheCookieSession👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇//
+app.use(express.urlencoded({ extended : true }));
+app.use(express.json());
+
 app.use(cookieSession({keys:['qqqpwoeirutylaksjdhfgzmxncbvewasscjggjcjgcmnncjhduxhgfddd']}));
-app.use(routerU);
-app.use(routerP);
-app.use(routerAP);
-app.use(routerC);
 
-app.listen(process.env.PORT||3000,()=>{
-	console.log("Server Is Running...");
+app.use(routerAdminAuth);
+app.use(routerProducts);
+app.use(routerAdminProducts);
+app.use(routerCarts);
+
+app.listen(PORT,()=>{
+	console.log(`app running on port ${PORT}`);
 })
-
-
-
-
-
-
-
-
-
-//    /////////// / / / /// / // /  /my Body Parser ////// /// / / //  // / / //  / / // / 
-//const bodyParse=(req,res,next)=>{
-//	if(req.method==="POST"){
-//		req.on('data',(data)=>{
-//		const dataString=data.toString('utf8').split('&');
-//		const formData={};
-//		for(let pair of dataString){
-//			const [key,value]=pair.split('=');
-//			formData[key]=value;
-//			} 
-//			req.body=formData;
-//			next();
-//		});	
-//	}else{
-//		next();
-//	}
-//}

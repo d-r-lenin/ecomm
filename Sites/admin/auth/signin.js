@@ -14,7 +14,7 @@ module.exports=({errors,exGirl})=>{
                 </div>
                 <div class="form-group">
                     <label > Password</label>
-                    <input name="pwd" value="${pwd}" placeholder="password" type="text" class="form-control" required>
+                    <input type="password" name="pwd" value="${pwd}" placeholder="password" type="text" class="form-control" required>
 					<p class="validation">${getError(errors,'pwd')}</p>
                 </div>
                 <input type="submit" class="btn" value="sign in">
