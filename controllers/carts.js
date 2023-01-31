@@ -11,11 +11,12 @@ app.post('/cart/delete',async (req,res)=>{
 		res.redirect('/');
 	}
 	const result= await CartsRepo.deleteFromCart(req.session.cartId,req.body.productId);
-	console.log(result)
-	if(result===2){
+
+	if(result === 2){
 		await CartsRepo.deleteStat(req.session.cartId);
 		req.session.cartId=null;
 	}
+	
 	res.redirect('/cart');
 });
 
@@ -54,6 +55,11 @@ app.get('/cart',async(req,res)=>{
 		return n; 
 	})
 	items = await Promise.all(items);
+	if(items.length === 0){
+		await CartsRepo.deleteStat(req.session.cartId);
+		req.session.cartId=null;
+		return res.redirect('/');
+	}
 	res.send(await cartT({products:items}));
 });
 

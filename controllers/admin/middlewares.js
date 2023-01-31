@@ -5,6 +5,7 @@ const productsRepo=require('../../Repos/products');
 module.exports={
 //////////////////////////////////////
 	secureAuth(req,res,next){
+		console.log(req.session.userId);
 		if(!req.session.userId){
 			return res.redirect('/signin');
 		}
@@ -48,9 +49,11 @@ module.exports={
 	errorHandlerIN(template){
 		return (req,res,next)=>{
 			const errors=validationResult(req);	
+			console.log(errors);
 			if(!errors.isEmpty()){
 				return res.send(template({errors,exGirl:req.body}));
 			}
+			console.log("running")
 			next();
 		}
 	}

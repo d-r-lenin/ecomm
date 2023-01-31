@@ -4,7 +4,7 @@ const {getError}=require('../../viewHelper');
 module.exports=({errors})=>{
 	return layout({
 		content:`
-<div class="container">
+<div class="container container-sm" style="max-width:500px;">
             <form method="POST" enctype="multipart/form-data">
                 <h1>Add Product</h1>
                 <div class="form-group">
@@ -21,7 +21,7 @@ module.exports=({errors})=>{
                     <label >Image</label>
                     <input name="image" type="file" class="form-control" required>
                 </div>
-                <input name="image" type="submit" class="btn" value="Add Product">
+                <input name="image" type="submit" class="btn btn-primary" value="Add Product">
             </form>
     </div>
 `,

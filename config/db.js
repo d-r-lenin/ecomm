@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
 
-const connectionString = process.env.MONGO_STRING;
+
+const connectionString = process.env.ENV !== 'dev' ? process.env.MONGO_STRING : 'mongodb://localhost:27017/ecomm';
+
 
 async function connect() {
     try {

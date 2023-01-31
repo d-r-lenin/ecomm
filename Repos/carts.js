@@ -38,6 +38,8 @@ class CartsRepo extends Repo {
 
     async deleteFromCart(cartId, productId) {
         const cart = await super.get(cartId);
+
+
         if (!cart) {
             return 1;
         }
@@ -48,11 +50,12 @@ class CartsRepo extends Repo {
         
         let items = cart.items.filter((item) => {
             if (item.id != productId) {
-                console.log(item.id, productId);
                 return true;
-            } else {
+            } else if( item.count > 1){
                 found.id = item.id;
                 found.count = item.count - 1;
+            } else {
+                return false;
             }
         });
 
@@ -64,6 +67,7 @@ class CartsRepo extends Repo {
             return 2;
         }
 
+        
         await super.update(cart.id, { items });
         return 0;
     }

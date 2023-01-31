@@ -5,9 +5,9 @@ module.exports=({errors,exGirl,req})=>{
 	const {mail,pwd,cpwd}=checkForExGirl(exGirl);
 	return layout({
         content: `
-		<div class="container">
-            <form method="POST">
-                <h1>Sign Up</h1>
+		<div class="container container-sm" style="max-width:500px;">
+            <form method="POST" class="mt-5">
+                <h2 class="display-5">Sign Up</h2>
                 <div class="form-group">
                     <label>Email </label>
                     <input name="email" value="${mail}" placeholder="user email"  class="form-control" required focus>
@@ -23,8 +23,10 @@ module.exports=({errors,exGirl,req})=>{
                     <input type="password" name="cpwd" value="${cpwd}" placeholder="password" type="text" class="form-control" required>
 					<p class="validation">${getError(errors, "cpwd")}</p>
                 </div>
-                <input type="submit" class="btn" value="sign in">
+                <input type="submit" class="btn" value="sign up">
             </form>
+            Already have an account? 
+            <a href="/signin">Sign In</a>
     </div>
 `,
         links: `

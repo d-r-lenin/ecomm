@@ -6,9 +6,6 @@ class Repo {
 	async getAll() {
 		try {
 			let result =  await this.model.find({});
-			if (result) {
-				result = result.toObject();
-			}
 			return result;
 		} catch (error) {
 			console.error(error);
@@ -56,6 +53,7 @@ class Repo {
 			let result = await this.model.findOne(object);
 			if (result) {
 				result = result.toObject();
+				result.id = result._id;
 			}
 			return result;
 		} catch (error) {

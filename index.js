@@ -2,6 +2,7 @@
 
 require('dotenv').config();
 require('./config/db').connect();
+require('./migrate').seed();
 
 const PORT = process.env.PORT || 3000;
 

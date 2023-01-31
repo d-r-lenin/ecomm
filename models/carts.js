@@ -5,8 +5,7 @@ const cartSchema = new Schema(
         items: [
             {
                 id: {
-                    type: Schema.Types.ObjectId,
-                    ref: "Product",
+                    type: String,
                     required: true,
                 },
                 count: {
@@ -19,7 +18,8 @@ const cartSchema = new Schema(
     { 
         timestamps: true, 
         toJSON: { virtuals: true }, 
-        toObject: { virtuals: true } 
+        toObject: { virtuals: true } ,
+        ttl: 60*60*24,
     }
 );
 
